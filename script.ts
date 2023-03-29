@@ -3,18 +3,19 @@ const prisma = new PrismaClient();
 
 async function main() {
   await prisma.user.deleteMany();
-  const user = await prisma.user.create({
-    data: {
-      name: "Ahmed",
-      email: "ahmed@test.com",
-      age: 25,
-      userPreference: {
-        create: {
-          emailUpdates: true,
-        },
+  const user = await prisma.user.createMany({
+    data: [
+      {
+        name: "Ahmed",
+        email: "ahmed@test.com",
+        age: 25,
       },
-    },
-    select: { name: true, userPreference: { select: { id: true } } },
+      {
+        name: "Abiodun",
+        email: "abiodun@test.com",
+        age: 35,
+      },
+    ],
   });
 
   console.log(user);
